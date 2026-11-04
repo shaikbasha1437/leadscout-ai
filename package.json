@@ -1,0 +1,9 @@
+{
+  "name": "leadscout-ai",
+  "version": "1.0.0",
+  "description": "A sales research agent that finds leads, researches them and drafts outreach that cites its sources. Drafts only. Runs in the browser.",
+  "private": true,
+  "license": "MIT",
+  "scripts": { "test": "node --test test/" },
+  "engines": { "node": ">=18" }
+}

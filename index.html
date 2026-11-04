@@ -1,1 +1,72 @@
-<!doctype html><meta charset="utf-8"><title>LeadScout AI</title><p>LeadScout AI is being built. Check back shortly.</p>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LeadScout AI · sales research agent that drafts cited outreach</title>
+<meta name="description" content="A sales research agent in your browser: finds accounts that match your ideal customer, scores fit with reasons, researches each one and drafts outreach that cites its sources. Drafts only; it never sends anything.">
+<meta name="theme-color" content="#0e7c66" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1418" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#view">Skip to content</a>
+<header class="top">
+  <div class="brand"><img src="icons/icon.svg" alt="" width="28" height="28"><span>LeadScout <b>AI</b></span></div>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#agent" data-tab="agent">Agent</a>
+    <a href="#leads" data-tab="leads">Leads <span class="badge" id="review-badge" title="Drafts waiting for review" hidden></span></a>
+    <a href="#outbox" data-tab="outbox">Sequences</a>
+    <a href="#compliance" data-tab="compliance">Compliance</a>
+    <a href="#settings" data-tab="settings">Settings</a>
+  </nav>
+  <div class="top-actions">
+    <button type="button" class="mode-chip" id="mode-chip" title="Change how research and drafts are written">Demo mode</button>
+    <button type="button" class="icon-btn" id="theme-btn" aria-label="Switch light or dark theme" title="Theme">◐</button>
+    <button type="button" class="icon-btn" id="about-btn" aria-label="About LeadScout AI" title="About">?</button>
+  </div>
+</header>
+<div class="offline-bar" id="offline-bar" hidden>You're offline. Demo mode keeps working; live AI calls and web search need a connection.</div>
+<main id="view" tabindex="-1"></main>
+<footer class="foot small muted">Drafts only: LeadScout never sends anything. Demo companies, people and news are fictional. <a href="https://github.com/shaikbasha1437/leadscout-ai" rel="noopener">Source</a></footer>
+<nav class="bottom-tabs" aria-label="Sections">
+  <a href="#agent" data-tab="agent"><span>🧭</span>Agent</a>
+  <a href="#leads" data-tab="leads"><span>📋</span>Leads<i class="badge" id="review-badge-m" hidden></i></a>
+  <a href="#outbox" data-tab="outbox"><span>🗓️</span>Sequences</a>
+  <a href="#compliance" data-tab="compliance"><span>🛡️</span>Rules</a>
+  <a href="#settings" data-tab="settings"><span>⚙️</span>Settings</a>
+</nav>
+<div id="modal-root"></div>
+<div id="toast-host" aria-live="polite"></div>
+<noscript><p class="noscript">LeadScout AI needs JavaScript. Everything runs in your browser; there is no server.</p></noscript>
+<script src="js/agentkit/guard.js"></script>
+<script src="js/agentkit/llm.js"></script>
+<script src="js/agentkit/keystore.js"></script>
+<script src="js/agentkit/modal.js"></script>
+<script src="js/agentkit/search.js"></script>
+<script src="js/agentkit/webllm.js"></script>
+<script src="js/data/companies.js"></script>
+<script src="js/lead/text.js"></script>
+<script src="js/lead/icp.js"></script>
+<script src="js/lead/research.js"></script>
+<script src="js/lead/compose.js"></script>
+<script src="js/lead/quality.js"></script>
+<script src="js/lead/compliance.js"></script>
+<script src="js/lead/csv.js"></script>
+<script src="js/lead/live.js"></script>
+<script src="js/lead/agent.js"></script>
+<script src="js/lead/store.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+<script src="js/views/agent.js"></script>
+<script src="js/views/leads.js"></script>
+<script src="js/views/lead.js"></script>
+<script src="js/views/outbox.js"></script>
+<script src="js/views/compliance.js"></script>
+<script src="js/views/settings.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
