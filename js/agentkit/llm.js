@@ -6,7 +6,7 @@
   else (root.AgentKit = root.AgentKit || {}).llm = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
-  // US list prices per 1M tokens, checked 2026-11-03 on each vendor's pricing page. Editable in the app.
+  // US list prices per 1M tokens, checked 2026-11-03 on each vendor's pricing page. Used only for cost estimates.
   const PRICES = {
     'gpt-5-mini': { in: 0.25, out: 2.0 }, 'gpt-5-nano': { in: 0.05, out: 0.4 }, 'gpt-5': { in: 1.25, out: 10 }, 'gpt-5.4-mini': { in: 0.75, out: 4.5 }, 'gpt-5.4-nano': { in: 0.2, out: 1.25 }, 'gpt-4.1-mini': { in: 0.4, out: 1.6 }, 'gpt-4o-mini': { in: 0.15, out: 0.6 },
     'claude-haiku-4-5': { in: 1, out: 5 }, 'claude-haiku-5-5': { in: 0.1, out: 0.5 }, 'claude-sonnet-4-5': { in: 3, out: 15 }, 'claude-sonnet-4-6': { in: 3, out: 15 }, 'claude-sonnet-5': { in: 2, out: 10 }, 'claude-sonnet-5-5': { in: 2, out: 10 },
@@ -93,7 +93,7 @@
       if (e && e.name === 'AbortError') throw new Error('The request timed out.');
       const local = /localhost|127\.0\.0\.1|\[::1\]/.test(req.url);
       if (!local && /api\.openai\.com/.test(req.url)) throw new Error('Could not read a reply from api.openai.com. If you are online, check the key: OpenAI\u2019s \u201cinvalid key\u201d reply has no CORS header, so the browser reports it as a network error.');
-      throw new Error(local ? 'Could not reach ' + req.url + '. Is the server running, and does it allow this site (CORS)? For Ollama set OLLAMA_ORIGINS to include this site; in LM Studio turn on CORS. Your browser may also ask to allow local network access.' : 'Network error reaching ' + new URL(req.url).host + ' (offline, blocked, or CORS).');
+      throw new Error(local ? 'Could not reach ' + req.url + '. Is the server running, and does it allow this site (CORS)? For Ollama set OLLAMA_ORIGINS to include this site; in LM Studio turn on CORS. Your browser may also ask to allow local network access.' : 'Network error reaching ' + new URL(req.url).host + ' (offline, blocked, or CORS).' + (cfg.provider === 'openai' ? ' OpenAI sends key errors without CORS headers, so a wrong or revoked key also looks like this. Check the key.' : ''));
     }
     if (timer) clearTimeout(timer);
     const txt = await res.text();

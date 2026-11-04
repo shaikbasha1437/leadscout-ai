@@ -25,6 +25,7 @@
   app.dncFor = (l) => LS.compliance.blocked(l, S().dnc);
 
   // ---------- model and search ----------
+  app.prices = () => Object.assign({}, AK.llm.PRICES, S().prices || {});
   app.modelCfg = () => {
     const s = S().settings; const p = s.provider in AK.llm.PROVIDERS ? s.provider : 'openai'; const P = AK.llm.PROVIDERS[p];
     return { provider: p, model: (s.models && s.models[p]) || P.defaultModel, baseUrl: p === 'compatible' ? (s.baseUrl || P.baseUrl) : '', key: keys.get(p), referer: location.origin + location.pathname, title: 'LeadScout AI' };
@@ -34,7 +35,7 @@
     if (s.mode === 'live') {
       const c = app.modelCfg(); const P = AK.llm.PROVIDERS[c.provider];
       if (P.needsKey && !c.key) return { error: 'Live mode needs your ' + P.label + ' API key. Add it in Settings \u203a AI model, or switch back to demo mode.' };
-      return { label: P.label, model: c.model, call: (msg) => AK.llm.call(c, msg, { prices: Object.assign({}, AK.llm.PRICES, S().prices || {}), timeoutMs: 90000 }) };
+      return { label: P.label, model: c.model, call: (msg) => AK.llm.call(c, msg, { prices: app.prices(), timeoutMs: 90000 }) };
     }
     if (s.mode === 'webllm') {
       const model = s.webllmModel || AK.webllm.MODELS[0].id;

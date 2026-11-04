@@ -1,6 +1,6 @@
 /* LeadScout AI service worker: network-first for app files, per-file cache, versioned, offline fallback.
    Bump CACHE on each release; old caches are removed on activate. Demo mode works fully offline. */
-const CACHE = 'leadscout-ai-v1';
+const CACHE = 'leadscout-ai-v2';
 const ASSETS = [
   './', './index.html', './styles.css', './manifest.webmanifest', './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png',
   './js/agentkit/guard.js','./js/agentkit/keystore.js','./js/agentkit/llm.js','./js/agentkit/modal.js','./js/agentkit/search.js','./js/agentkit/webllm.js','./js/app.js','./js/data/companies.js','./js/lead/agent.js','./js/lead/compliance.js','./js/lead/compose.js','./js/lead/csv.js','./js/lead/icp.js','./js/lead/live.js','./js/lead/quality.js','./js/lead/research.js','./js/lead/store.js','./js/lead/text.js','./js/main.js','./js/ui.js','./js/views/agent.js','./js/views/compliance.js','./js/views/lead.js','./js/views/leads.js','./js/views/outbox.js','./js/views/settings.js'

@@ -121,3 +121,6 @@ test('redraft with a new tone and variant; recheck runs the same quality rules',
 test('keyOf dedupes by domain then name', () => {
   assert.equal(A.keyOf({ domain: 'WWW.Acme.example', name: 'Acme' }), A.keyOf({ domain: 'acme.example', name: 'ACME Inc' }));
 });
+test('demo leads carry valid fictional emails', () => {
+  D.forEach((c) => A.demoLead(c).people.forEach((p) => { if (p.email) assert.match(p.email, /^[a-z0-9.-]+@[a-z0-9-]+\.example$/, p.email); }));
+});

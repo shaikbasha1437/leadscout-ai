@@ -13,7 +13,7 @@
   }
   function render(main) {
     const leads = S().leads; const regimes = {};
-    leads.forEach((l) => { const r = C.regimeFor(l.company.country); (regimes[r] = regimes[r] || []).push(l.company.name); });
+    leads.forEach((l) => { const r = C.regimeFor(l.company.country).id; (regimes[r] = regimes[r] || []).push(l.company.name); });
     const order = Object.keys(regimes).sort((a, b) => regimes[b].length - regimes[a].length);
     if (!order.length) order.push('canspam', 'gdpr');
     main.append(h('h1', {}, 'Compliance'), h('div', { class: 'notice warn', style: 'margin-bottom:14px' }, h('b', {}, 'Reminders, not legal advice. '), 'Rules differ by country and change. Check with someone qualified before you run campaigns.'));
