@@ -39,18 +39,20 @@
     if (/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s)) return { type: 'email', value: s.toLowerCase(), raw: s };
     const d = s.replace(/^@/, '').replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/.*$/, '').toLowerCase();
     if (/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(d)) return { type: 'domain', value: d, raw: s };
-    return { type: 'company', value: T.norm(s).replace(/[^a-z0-9]+/g, ' ').trim(), raw: s };
+    return { type: 'company', value: coKey(s), raw: s };
   }
   function parseList(text) {
     const seen = new Set(); const out = [];
-    String(text || '').split(/[\n,;]+/).map(parseEntry).filter(Boolean).forEach((e) => { const k = e.type + ':' + e.value; if (!seen.has(k)) { seen.add(k); out.push(e); } });
+    String(text || '').split(/\r?\n/).filter((l) => !/^\s*#/.test(l)).join('\n').split(/[\n,;]+/).map(parseEntry).filter(Boolean).forEach((e) => { const k = e.type + ':' + e.value; if (!seen.has(k)) { seen.add(k); out.push(e); } });
     return out;
   }
   const domainOf = (email) => String(email || '').toLowerCase().split('@')[1] || '';
+  // Company names compare without punctuation or legal suffixes, so “Initech, Inc.” matches “Initech”.
+  function coKey(s) { return T.norm(s).replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+(inc|incorporated|llc|ltd|limited|plc|gmbh|ag|sa|bv|corp|corporation|co|company)$/, '').trim(); }
   function blocked(lead, list) {
     const co = lead.company || {}; const emails = [lead.contact && lead.contact.email].concat((lead.people || []).map((p) => p.email)).filter(Boolean).map((e) => e.toLowerCase());
     const domains = new Set([String(co.domain || '').toLowerCase().replace(/^www\./, '')].concat(emails.map(domainOf)).filter(Boolean));
-    const name = T.norm(co.name).replace(/[^a-z0-9]+/g, ' ').trim();
+    const name = coKey(co.name);
     for (const e of list || []) {
       if (e.type === 'email' && lead.contact && lead.contact.email && lead.contact.email.toLowerCase() === e.value) return { entry: e, reason: 'Contact ' + e.value + ' is on your do-not-contact list' };
       if (e.type === 'domain' && [...domains].some((d) => d === e.value || d.endsWith('.' + e.value))) return { entry: e, reason: 'Domain ' + e.value + ' is on your do-not-contact list' };

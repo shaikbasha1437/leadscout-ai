@@ -7,7 +7,7 @@
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
   const KEY_FIELD = /^(api[_-]?key|key|apikey|token|secret|password|authorization|x-api-key|x-goog-api-key)$/i;
-  const KEY_VALUE = /\b(sk-(ant-|proj-|or-)?[A-Za-z0-9_-]{16,}|AIza[0-9A-Za-z_-]{30,}|gsk_[A-Za-z0-9]{20,}|xai-[A-Za-z0-9]{20,}|hf_[A-Za-z0-9]{20,}|Bearer\s+[A-Za-z0-9._-]{16,})\b/g;
+  const KEY_VALUE = /\b(sk-(ant-|proj-|or-)?[A-Za-z0-9_-]{16,}|AIza[0-9A-Za-z_-]{30,}|gsk_[A-Za-z0-9]{20,}|xai-[A-Za-z0-9]{20,}|hf_[A-Za-z0-9]{20,}|tvly-[A-Za-z0-9_-]{16,}|Bearer\s+[A-Za-z0-9._-]{16,})\b/g;
   function createKeyStore(opts) {
     const prefix = (opts && opts.prefix) || 'agentkit';
     const local = opts && 'local' in opts ? opts.local : (typeof localStorage !== 'undefined' ? localStorage : null);

@@ -51,7 +51,8 @@
     for (const want of list) {
       const w = T.norm(want).trim();
       if (!w) continue;
-      if (n === w || n.includes(w) || (w.length > 3 && w.includes(n) && n)) return { ok: true, via: want };
+      const sq = (x) => x.replace(/[\s-]+/g, '');
+      if (n === w || n.includes(w) || (w.length > 3 && w.includes(n) && n) || (n && sq(n).includes(sq(w)))) return { ok: true, via: want };
       const syn = INDUSTRY_SYN[w] || [];
       if (syn.some((s) => n.includes(s))) return { ok: true, via: want };
     }
@@ -121,7 +122,8 @@
   function normalize(icp) {
     const o = Object.assign({}, DEFAULT_ICP, icp || {});
     ['industries', 'regions', 'roles', 'tech', 'hiringKeywords'].forEach((k) => { o[k] = T.list(o[k]); });
-    o.sizeMin = Math.max(0, Number(o.sizeMin) || 0); o.sizeMax = Math.max(o.sizeMin, Number(o.sizeMax) || 100000);
+    o.sizeMin = Math.max(0, Number(o.sizeMin) || 0); o.sizeMax = Math.max(0, Number(o.sizeMax) || 100000);
+    if (o.sizeMax < o.sizeMin) { const t = o.sizeMin; o.sizeMin = o.sizeMax; o.sizeMax = t; }
     o.maxLeads = Math.min(200, Math.max(1, Math.round(Number(o.maxLeads) || 12))); o.minFit = Math.min(100, Math.max(0, Number(o.minFit) || 0));
     o.recencyDays = Math.max(7, Number(o.recencyDays) || 120);
     return o;

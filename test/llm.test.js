@@ -33,7 +33,7 @@ test('OpenAI-compatible request: custom base URL, optional key, OpenRouter heade
   assert.equal(r.init.headers.authorization, undefined);
   assert.equal(JSON.parse(r.init.body).messages[0].role, 'system');
   const o = L.buildRequest({ provider: 'compatible', model: 'openai/gpt-5-mini', baseUrl: 'https://openrouter.ai/api/v1', key: KEY }, msg);
-  assert.equal(o.init.headers['X-Title'], 'SupportDesk AI'); assert.ok(o.init.headers['HTTP-Referer']);
+  assert.equal(o.init.headers['X-Title'], 'LeadScout AI'); assert.ok(o.init.headers['HTTP-Referer']);
 });
 test('responses are parsed with usage for every provider', () => {
   assert.deepEqual(L.parseResponse('openai', { choices: [{ message: { content: 'hi' }, finish_reason: 'stop' }], usage: { prompt_tokens: 10, completion_tokens: 3 } }).usage, { input: 10, output: 3 });
